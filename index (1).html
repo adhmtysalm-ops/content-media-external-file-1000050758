@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القارئ أدهم عطية - تلاوات قرآنية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* أنماط CSS العامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+        
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #00c6ff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --text: #333;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e6eeff 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* النجوم في الخلفية */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: rgba(106, 17, 203, 0.3);
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.7; }
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* رأس الموقع */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+            background: rgba(106, 17, 203, 0.1);
+        }
+        
+        /* قسم البطل */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* قسم نبذة عن القارئ */
+        .about {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+        }
+        
+        .youtube-link {
+            display: inline-flex;
+            align-items: center;
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: rgba(255, 0, 0, 0.1);
+        }
+        
+        .youtube-link:hover {
+            color: #fff;
+            background: #ff0000;
+            transform: translateX(-5px);
+        }
+        
+        .youtube-link i {
+            margin-left: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* قسم التلاوات */
+        .recitations {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .recitations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .recitation-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+        }
+        
+        .recitation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .recitation-info {
+            padding: 20px;
+        }
+        
+        .recitation-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .recitation-info p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        
+        /* تذييل الصفحة */
+        footer {
+            background: var(--dark);
+            padding: 50px 0 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* تأثيرات إضافية */
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(106, 17, 203, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(106, 17, 203, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(106, 17, 203, 0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- النجوم في الخلفية -->
+    <div class="stars" id="stars"></div>
+
+    <!-- رأس الموقع -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">📖</span>
+                    <h1>القارئ أدهم عطية</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#about">نبذة عن القارئ</a></li>
+                        <li><a href="#recitations">التلاوات</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم البطل -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="floating">تلاوات قرآنية بصوت القارئ أدهم عطية</h2>
+                <p>استمع إلى أجمل التلاوات القرآنية بصوت شجي وعذب من القارئ الشاب أدهم عطية</p>
+                <a href="#recitations" class="btn pulse">استمع الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم نبذة عن القارئ -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">نبذة عن القارئ</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <!-- صورة القارئ المحدثة -->
+                    <img src="https://raw.githubusercontent.com/imagesloads/images/refs/heads/main/img_5cd287ef134d058a.png" alt="القارئ أدهم عطية">
+                </div>
+                <div class="about-text">
+                    <h3>القارئ أدهم عطية</h3>
+                    <p>القارئ أدهم عطية، شاب مصري في السادسة عشرة من عمره، مواليد 2009. تميز بصوته العذب وأدائه الخاشع في تلاوة القرآن الكريم.</p>
+                    <p>يمتلك قناة على يوتيوب ينشر من خلالها تلاواته، ويسعى إلى نشر رسالة القرآن وإيصالها بصدق وروحانية إلى قلوب المستمعين.</p>
+                    <a href="https://youtube.com/@adhematiay-k7f?si=zjYhkZZaW5nkUX2n" target="_blank" class="youtube-link">
+                        <i class="fab fa-youtube"></i> قناة اليوتيوب للقارئ أدهم عطية
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التلاوات -->
+    <section class="recitations" id="recitations">
+        <div class="container">
+            <h2 class="section-title">التلاوات القرآنية</h2>
+            <div class="recitations-grid">
+                <!-- تلاوة 1 -->
+                <div class="recitation-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wa_DldRxnjU" title="سورة النصر - القارئ أدهم عطية" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="recitation-info">
+                        <h3>سورة النصر</h3>
+                        <p>تلاوة خاشعة لسورة النصر بصوت القارئ أدهم عطية</p>
+                        <p class="note">هذه التلاوات مسجلة</p>
+                    </div>
+                </div>
+                
+                <!-- تلاوة 2 -->
+                <div class="recitation-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/pnlRyYHJFuU" title="سورة الكافرون - القارئ أدهم عطية" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="recitation-info">
+                        <h3>سورة الكافرون</h3>
+                        <p>تلاوة خاشعة لسورة الكافرون بصوت القارئ أدهم عطية</p>
+                        <p class="note">هذه التلاوات مسجلة</p>
+                    </div>
+                </div>
+                
+                <!-- تلاوة 3 -->
+                <div class="recitation-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/CMzh3p1aA98" title="سورة الكوثر - القارئ أدهم عطية" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="recitation-info">
+                        <h3>سورة الكوثر</h3>
+                        <p>تلاوة خاشعة لسورة الكوثر بصوت القارئ أدهم عطية</p>
+                        <p class="note">هذه التلاوات مسجلة</p>
+                    </div>
+                </div>
+                
+                <!-- تلاوة 4 -->
+                <div class="recitation-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/DhZMWLffDuc" title="سورة الماعون - القارئ أدهم عطية" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="recitation-info">
+                        <h3>سورة الماعون</h3>
+                        <p>تلاوة خاشعة لسورة الماعون بصوت القارئ أدهم عطية</p>
+                        <p class="note">هذه التلاوات مسجلة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن الموقع</h3>
+                    <p>موقع مخصص لعرض تلاوات القارئ أدهم عطية القرآنية، يمكن للزوار الاستماع إلى التلاوات مباشرة عبر اليوتيوب.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <a href="#home">الرئيسية</a>
+                    <a href="#about">نبذة عن القارئ</a>
+                    <a href="#recitations">التلاوات</a>
+                </div>
+                <div class="footer-section">
+                    <h3>اتصل بنا</h3>
+                    <p>البريد الإلكتروني: adhmtysalm@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://youtube.com/@adhematiay-k7f?si=zjYhkZZaW5nkUX2n" target="_blank" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2023 موقع القارئ أدهم عطية</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // إنشاء النجوم العشوائية
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 150;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // حجم عشوائي للنجوم
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // موقع عشوائي
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // مدة ومدة تأخير عشوائية للوميض
+                const duration = 3 + Math.random() * 5;
+                const delay = Math.random() * 5;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // تفعيل النجوم عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // تنعيم التمرير للروابط الداخلية
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // إضافة تأثيرات للبطاقات عند التمرير
+            const recitationCards = document.querySelectorAll('.recitation-card');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            recitationCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
